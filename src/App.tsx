@@ -9,13 +9,41 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+//Navigation
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+//Screens
+import Home from './screens/Home';
+import Details from './screens/Details';
+
+//Navigator Type 
+export type RootStackParamsList = {
+  Home: undefined, 
+  Details: {productId: string}
+}
+
+const Stack = createNativeStackNavigator<RootStackParamsList>()
 
 function App(): React.JSX.Element {
   return (
-    <SafeAreaView>
-      <StatusBar/>
-        <Text>Testing...</Text>
-    </SafeAreaView>
+   <NavigationContainer>
+      <Stack.Navigator initialRouteName='Home'>
+        <Stack.Screen 
+        name='Home'
+        component={Home}
+        options={{
+          title: 'Tending Products'
+        }}
+        />
+      <Stack.Screen 
+      name='Details'
+      component={Details}
+      options={{
+        title: 'Product Details'
+      }}
+      />
+      </Stack.Navigator>
+   </NavigationContainer>
   );
 }
 
